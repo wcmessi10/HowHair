@@ -113,6 +113,16 @@ public class UploadActivity extends toolbarClass {
 
 
         });
+        Button upload_before = findViewById(R.id.upload_before);
+        upload_before.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//위에 액티비티 전부 종료
+                startActivity(intent);
+            }
+        });
+
 
     }
 

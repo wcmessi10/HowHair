@@ -74,6 +74,16 @@ public class DesignerUploadActivity1 extends toolbarClass {
                 openGallery();
             }
         });
+
+        Button upload_before = findViewById(R.id.designer_upload1_before);
+        upload_before.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),UploadActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//위에 액티비티 전부 종료
+                startActivity(intent);
+            }
+        });
     }
     public void openGallery(){//인텐트 통해서 이미지 가져오기
         Intent intent = new Intent();
