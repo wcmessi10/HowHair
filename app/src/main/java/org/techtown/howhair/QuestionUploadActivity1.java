@@ -6,15 +6,27 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.InputStream;
 
-public class QuestionUploadActivity1 extends AppCompatActivity {
+public class QuestionUploadActivity1 extends toolbarClass {
+    ActionBar abar;//액션바 생성
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+
     ImageView imageView;
     ImageView imageView2;
     private static final int REQUEST_TAKE_ALBUM=102;
@@ -22,6 +34,34 @@ public class QuestionUploadActivity1 extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_upload1);
+
+        toolbar = findViewById(R.id.toolbar_question_upload1);
+        setSupportActionBar(toolbar);
+
+        abar = getSupportActionBar();
+        abar.setDisplayShowTitleEnabled(false);
+
+        drawerLayout = findViewById(R.id.draw_question_upload1);
+        Button button = findViewById(R.id.menu_button_question_upload1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+        navigationView = findViewById(R.id.nav_menu_question_upload1);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+        Button homeButton = findViewById(R.id.home_button_question_upload1);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//이전 액티비티 전부 종료
+                startActivity(intent);
+            }
+        });
 
         imageView = findViewById(R.id.imageView4);
         imageView2 = findViewById(R.id.imageView5);
