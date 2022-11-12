@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <item
+        android:id="@+id/app_bar_search"
+        android:title="검색"
+        app:actionViewClass="android.widget.SearchView" />
+    <group >
+        <item
+            android:id="@+id/designer"
+            android:title="디자이너글" />
+        <item
+            android:id="@+id/question"
+            android:title="고민글"
+            />
+        <item
+            android:id="@+id/review"
+            android:title="후기글" />
+    </group>
+</menu>
