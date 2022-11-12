@@ -62,6 +62,17 @@ public class UploadActivity extends toolbarClass {
         navigationView = findViewById(R.id.nav_menu_upload);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        Button homeButton = findViewById(R.id.home_button_upload);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//이전 액티비티 전부 종료
+                startActivity(intent);
+            }
+        });
+
         uploadType = findViewById(R.id.uploadType);
         uploadType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

@@ -31,7 +31,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
+        </activity><!--홈화면은 중첩 액티비티 전부 제거!-->
     </application>
 
 </manifest>
