@@ -63,7 +63,7 @@
         app:layout_constraintVertical_bias="0.784" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/designer_upload1_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/next"
