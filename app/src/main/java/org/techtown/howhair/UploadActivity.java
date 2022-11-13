@@ -55,6 +55,7 @@ public class UploadActivity extends toolbarClass {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), UploadActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(intent,REQUEST_CODE_UPLOAD);
             }
         });
