@@ -28,7 +28,7 @@ public class DesignerUploadActivity1 extends toolbarClass {
     NavigationView navigationView;
     Toolbar toolbar;
 
-
+    Bitmap imgBitmap;
     ImageView imageView;
     ImageView imageView2;
     private static final int REQUEST_TAKE_ALBUM=102;//앨범업로드
@@ -89,9 +89,12 @@ public class DesignerUploadActivity1 extends toolbarClass {
         upload_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),DesignerUploadActivity2.class);
-                if(imageView2!=null){
-                    
+                Intent intent = new Intent(getApplicationContext(), DesignerUploadActivity2.class);
+                if(imgBitmap!=null){
+                    intent.putExtra("uploadImage",imgBitmap);
+                    startActivity(intent);
+                }else {
+                    startActivity(intent);
                 }
             }
         });
@@ -116,7 +119,7 @@ public class DesignerUploadActivity1 extends toolbarClass {
                 //다른 앱의 데이터베이스에 접근할수 있고, CRUD 메소드들을 제공한다.
                 try {
                     InputStream inStream = resolver.openInputStream(fileUri);
-                    Bitmap imgBitmap = BitmapFactory.decodeStream(inStream);
+                    imgBitmap = BitmapFactory.decodeStream(inStream);
                     imageView2.setImageBitmap(imgBitmap);
 
                     inStream.close();
