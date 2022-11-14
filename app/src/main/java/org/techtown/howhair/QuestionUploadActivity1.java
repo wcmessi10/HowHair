@@ -7,10 +7,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -129,4 +131,32 @@ public class QuestionUploadActivity1 extends toolbarClass {
             }
         }
     }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        switch (item.getItemId()){
+
+            case R.id.designer:
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page",1);
+                startActivity(intent);
+
+                break;
+
+
+            case R.id.question:
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page",2);
+                startActivity(intent);
+                break;
+
+            case R.id.review:
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page",3);
+                startActivity(intent);
+                break;
+        }
+        return true;
+    }
+
 }

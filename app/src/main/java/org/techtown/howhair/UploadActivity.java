@@ -126,6 +126,34 @@ public class UploadActivity extends toolbarClass {
 
 
     }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        switch (item.getItemId()){
+
+            case R.id.designer:
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page",1);
+                startActivity(intent);
+
+                break;
+
+
+            case R.id.question:
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page",2);
+                startActivity(intent);
+                break;
+
+            case R.id.review:
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("page",3);
+                startActivity(intent);
+                break;
+        }
+        return true;
+    }
+
 
 
 }

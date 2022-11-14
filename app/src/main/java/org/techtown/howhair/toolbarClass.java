@@ -1,5 +1,6 @@
 package org.techtown.howhair;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -18,6 +19,12 @@ import com.google.android.material.navigation.NavigationView;
 
 public class toolbarClass extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    DesignerFragment designerFragment;
+    ReviewFragment reviewFragment;
+    QuestionFragment questionFragment;
+    private static final int REQUEST_DESIGNER_PAGE=201;
+    private static final int REQUEST_QUESTION_PAGE=202;
+    private static final int REQUEST_REVIEW_PAGE=203;
     /*ActionBar abar;//액션바 생성
     DrawerLayout drawerLayout;
 
@@ -46,23 +53,12 @@ public class toolbarClass extends AppCompatActivity implements NavigationView.On
     }
 
     }*/
+    public void fragmentChanged(int position){
+
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.designer:
-                Toast.makeText(getApplicationContext(), "디자이너", Toast.LENGTH_SHORT).show();
-                return true;
-
-
-            case R.id.question:
-                Toast.makeText(getApplicationContext(), "고민", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.review:
-                Toast.makeText(getApplicationContext(), "후기", Toast.LENGTH_SHORT).show();
-                return true;
-        }
         return false;
     }
 }

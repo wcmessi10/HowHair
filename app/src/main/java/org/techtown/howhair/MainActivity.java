@@ -1,11 +1,13 @@
 package org.techtown.howhair;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +29,12 @@ public class MainActivity extends toolbarClass{
     Toolbar toolbar;
     FloatingActionButton fab;
     public static final int REQUEST_CODE_UPLOAD = 101;//업로드창
+    private static final int REQUEST_DESIGNER_PAGE=201;
+    private static final int REQUEST_QUESTION_PAGE=202;
+    private static final int REQUEST_REVIEW_PAGE=203;
+    DesignerFragment designerFragment;
+    ReviewFragment reviewFragment;
+    QuestionFragment questionFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,51 +65,49 @@ public class MainActivity extends toolbarClass{
                 startActivityForResult(intent,REQUEST_CODE_UPLOAD);
             }
         });
-        /*toolbar = findViewById(R.id.toolbar);
-        fab = findViewById(R.id.upload);
-        setSupportActionBar(toolbar);
 
-        abar = getSupportActionBar();
-        abar.setDisplayShowTitleEnabled(false);
+        designerFragment = new DesignerFragment();
+        questionFragment = new QuestionFragment();
+        reviewFragment = new ReviewFragment();
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UploadActivity.class);
-                startActivityForResult(intent,REQUEST_CODE_UPLOAD);
-            }
-        });
-
-        drawerLayout = findViewById(R.id.draw_menu);
-        Button button = findViewById(R.id.menu_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
-        navigationView = findViewById(R.id.nav_menu);
-        navigationView.setNavigationItemSelectedListener(this);*/
-
+        Intent intent = getIntent();
+        int i = intent.getIntExtra("page",1);
+        fragmentChanged(i);
+    }
+    @Override
+    public void fragmentChanged(int position) {
+        super.fragmentChanged(position);
+        switch (position){
+            case 1 : getSupportFragmentManager().beginTransaction().replace(R.id.container,designerFragment).commit();
+                break;
+            case 2 : getSupportFragmentManager().beginTransaction().replace(R.id.container,questionFragment).commit();
+                break;
+            case 3 : getSupportFragmentManager().beginTransaction().replace(R.id.container,reviewFragment).commit();
+                break;
+        }
     }
 
-
-   /* @Override
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.designer:
-                Toast.makeText(getApplicationContext(), "디자이너", Toast.LENGTH_SHORT).show();
-                return true;
+                fragmentChanged(1);
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
 
 
             case R.id.question:
-                Toast.makeText(getApplicationContext(), "고민", Toast.LENGTH_SHORT).show();
-                return true;
+                fragmentChanged(2);
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
 
             case R.id.review:
-                Toast.makeText(getApplicationContext(), "후기", Toast.LENGTH_SHORT).show();
-                return true;
+                fragmentChanged(3);
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
         }
-        return false;
-    }*/
+        return true;
+    }
+
+
 }
