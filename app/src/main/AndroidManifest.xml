@@ -22,8 +22,9 @@
         <activity android:name=".ReviewUploadActivity1"/>
         <activity android:name=".QuestionUploadActivity1"/>
         <activity android:name=".DesignerUploadActivity1"/>
+        <activity android:name=".MainActivity"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
