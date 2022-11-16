@@ -93,9 +93,10 @@ public class DesignerUploadActivity1 extends toolbarClass {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), DesignerUploadActivity2.class);
                 if(imgBitmap!=null){
-                    intent.putExtra("uploadImage",imgBitmap);
+                    intent.putExtra("uploadImage",imgBitmap.toString());
                     startActivity(intent);
                 }else {
+                    intent.putExtra("page","null");
                     startActivity(intent);
                 }
             }

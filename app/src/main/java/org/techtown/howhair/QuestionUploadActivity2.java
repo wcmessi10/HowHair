@@ -7,6 +7,8 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,6 +63,23 @@ public class QuestionUploadActivity2 extends toolbarClass{
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),QuestionUploadActivity1.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//위에 액티비티 전부 종료
+                startActivity(intent);
+            }
+        });
+
+        String type = "question";
+        Intent intent = getIntent();
+        String pic = intent.getStringExtra("page");
+        EditText editText = findViewById(R.id.question_Text);
+        Button upload_next = findViewById(R.id.question_upload2_next);
+        upload_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = editText.getText().toString();
+                Toast.makeText(getApplicationContext(),type+" "+pic+" "+text,Toast.LENGTH_SHORT).show();
+                //insertData(type,pic,text);
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });

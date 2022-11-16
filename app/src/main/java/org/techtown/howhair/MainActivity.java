@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -37,6 +38,7 @@ public class MainActivity extends toolbarClass{
     DesignerFragment designerFragment;
     ReviewFragment reviewFragment;
     QuestionFragment questionFragment;
+    SQLiteDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,7 @@ public class MainActivity extends toolbarClass{
             }
         });
 
+        //프레그먼트
         designerFragment = new DesignerFragment();
         questionFragment = new QuestionFragment();
         reviewFragment = new ReviewFragment();
@@ -75,7 +78,26 @@ public class MainActivity extends toolbarClass{
         Intent intent = getIntent();
         int i = intent.getIntExtra("page",1);
         fragmentChanged(i);
+
+        //안드로이드는 임베디드 데이터베이스로 개발된 경량급 관계형 데이터베이스 SQLite를 가짐
+        findDatabase();
+        findTable();
     }
+
+
+    //DB 생성
+
+
+    @Override
+    public void findDatabase() {
+        super.findDatabase();
+    }
+
+    @Override
+    public void findTable() {
+        super.findTable();
+    }
+
     @Override
     public void fragmentChanged(int position) {
         super.fragmentChanged(position);
@@ -122,7 +144,7 @@ public class MainActivity extends toolbarClass{
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
+                finishAffinity();
             }
         });
 

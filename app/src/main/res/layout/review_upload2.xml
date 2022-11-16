@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="4"
-        android:text="질문내용을 적어주세요"
+        android:text="리뷰내용을 적어주세요"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/review_Text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="1dp"
@@ -42,7 +42,7 @@
         android:background="@drawable/before" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/review_upload2_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"

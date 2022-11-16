@@ -1,12 +1,15 @@
 package org.techtown.howhair;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,11 +19,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Date;
+
 public class DesignerUploadActivity2 extends toolbarClass{
     ActionBar abar;//액션바 생성
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+
+    SQLiteDatabase database;
 
     Bitmap imgBitmap;
 
@@ -66,6 +73,23 @@ public class DesignerUploadActivity2 extends toolbarClass{
                 startActivity(intent);
             }
         });
+
+        String type = "designer";
+        Intent intent = getIntent();
+        String pic = intent.getStringExtra("page");
+        EditText editText = findViewById(R.id.designer_Text);
+        Button upload_next = findViewById(R.id.designer_upload2_next);
+        upload_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = editText.getText().toString();
+                Toast.makeText(getApplicationContext(),type+" "+pic+" "+text,Toast.LENGTH_SHORT).show();
+                //insertData(type,pic,text);
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -95,4 +119,8 @@ public class DesignerUploadActivity2 extends toolbarClass{
         return true;
     }
 
+    @Override
+    public void insertData(String type, String pic, String text) {
+        super.insertData(type, pic, text);
+    }
 }
