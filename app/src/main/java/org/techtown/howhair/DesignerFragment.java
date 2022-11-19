@@ -29,14 +29,14 @@ public class DesignerFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_designer, container, false);
 
-        textView = (rootView).findViewById(R.id.testtext);
+        String type ="designer";
+        textView = (rootView).findViewById(R.id.designertest);
         boardDatabase.findDatabase();
         boardDatabase.findTable();
-        boardDatabase.executeQuery(textView);
+        boardDatabase.executeQuery(textView,type);
 
 
         return rootView;
     }
-
 
 }

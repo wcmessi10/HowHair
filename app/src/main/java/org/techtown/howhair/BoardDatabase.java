@@ -10,7 +10,7 @@ public interface BoardDatabase {
 
     public void findTable();
 
-    public void executeQuery(TextView textView);
+    public void executeQuery(TextView textView,String type);
 
     public void insertData(String type,String pic, String text);
 }

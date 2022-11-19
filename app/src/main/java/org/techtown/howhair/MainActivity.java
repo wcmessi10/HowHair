@@ -109,8 +109,8 @@ public class MainActivity extends toolbarClass implements BoardDatabase{
     }
 
     @Override
-    public void executeQuery(TextView textView) {
-        Cursor cursor =database.rawQuery("select type, pic, text, date from board",null);
+    public void executeQuery(TextView textView, String type1) {
+        Cursor cursor =database.rawQuery("select type, pic, text, date from board where type ='"+type1+"'",null);
         int recordCount = cursor.getCount();//레코드 개수
         textView.append("레코드 개수 : "+recordCount);
         if(recordCount!=0){
