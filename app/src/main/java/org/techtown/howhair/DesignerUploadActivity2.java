@@ -119,8 +119,5 @@ public class DesignerUploadActivity2 extends toolbarClass{
         return true;
     }
 
-    @Override
-    public void insertData(String type, String pic, String text) {
-        super.insertData(type, pic, text);
-    }
+
 }

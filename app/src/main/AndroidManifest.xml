@@ -35,7 +35,8 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity><!--홈화면은 중첩 액티비티 전부 제거!-->
+        </activity>
+        <activity android:name="org.techtown.howhair.BoardDatabase" /><!--홈화면은 중첩 액티비티 전부 제거!-->
     </application>
 
 </manifest>

@@ -2,11 +2,13 @@ package org.techtown.howhair;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class toolbarClass extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -26,6 +28,7 @@ public class toolbarClass extends AppCompatActivity implements NavigationView.On
     DesignerFragment designerFragment;
     ReviewFragment reviewFragment;
     QuestionFragment questionFragment;
+
     private static final int REQUEST_DESIGNER_PAGE=201;
     private static final int REQUEST_QUESTION_PAGE=202;
     private static final int REQUEST_REVIEW_PAGE=203;
@@ -61,14 +64,14 @@ public class toolbarClass extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void findDatabase(){
+    /*public void findDatabase(){
         database = openOrCreateDatabase("게시글", MODE_PRIVATE, null); //DB가 존재하면 오픈. 존재하지않은면 생성
     }
 
     public void findTable(){//테이블이 있으면 오픈, 존재하지 않으면 생성
         String query =
                 "create table if not exists board " +
-                        "(type varchar2(20) not null, pic varchar2(100), text varchar2(300),date Timestamp);";
+                        "(type text not null, pic text, text text,date Date);";
         try{
             database.execSQL(query);
         }catch (Exception e){
@@ -87,6 +90,21 @@ public class toolbarClass extends AppCompatActivity implements NavigationView.On
             e.printStackTrace();
         }
     }
+    public void executeQuery(){
+        Cursor cursor =database.rawQuery("select type, pic, text, date from board",null);
+        int recordCount = cursor.getCount();//레코드 개수
+        textView.append("레코드 개수 : "+recordCount);
+        for (int i = 0; i<recordCount; i++){
+            cursor.moveToNext();
+            String type = cursor.getString(0);
+            String pic = cursor.getString(1);
+            String text = cursor.getString(2);
+            String date = cursor.getString(3);
+            textView.append("레코드 : "+type+" "+pic+" "+text+" "+date);
+        }
+        cursor.close();
+    }*/
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
