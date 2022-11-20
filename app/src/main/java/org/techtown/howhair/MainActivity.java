@@ -41,6 +41,7 @@ public class MainActivity extends toolbarClass implements BoardDatabase{
     ReviewFragment reviewFragment;
     QuestionFragment questionFragment;
     SQLiteDatabase database;
+    DatabaseHelper helper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +83,9 @@ public class MainActivity extends toolbarClass implements BoardDatabase{
         fragmentChanged(i);
 
         //안드로이드는 임베디드 데이터베이스로 개발된 경량급 관계형 데이터베이스 SQLite를 가짐
-        findDatabase();
-        findTable();
+        helper = new DatabaseHelper(this);
+        database = helper.getWritableDatabase();
+
     }
 
 
@@ -99,8 +101,8 @@ public class MainActivity extends toolbarClass implements BoardDatabase{
     public void findTable() {
 
         String query =
-                "create table if not exists board " +
-                        "(type text not null, pic text, text text,date Date);";
+                "create table if not exists Hairs " +
+                        "(type text not null, pic text, text text,date text);";
         try{
             database.execSQL(query);
         }catch (Exception e){
@@ -129,15 +131,17 @@ public class MainActivity extends toolbarClass implements BoardDatabase{
 
     @Override
     public void insertData(String type, String pic, String text) {
-        database.beginTransaction();
+        //database.beginTransaction();
         String query =
-                "insert into board (type, pic, text, date) values " +
+                "insert into Hairs (type, pic, text, date) values " +
                         "("+type +","+ pic + ","+text +",sysdate);";
-        try{
+        database.execSQL(query);
+        /*try{
             database.execSQL(query);
         }catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
+        //database.endTransaction();
     }
 
 

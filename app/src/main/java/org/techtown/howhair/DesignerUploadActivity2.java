@@ -19,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DesignerUploadActivity2 extends toolbarClass{
@@ -28,7 +29,7 @@ public class DesignerUploadActivity2 extends toolbarClass{
     Toolbar toolbar;
 
     SQLiteDatabase database;
-
+    DatabaseHelper helper;
     Bitmap imgBitmap;
 
     @Override
@@ -74,17 +75,19 @@ public class DesignerUploadActivity2 extends toolbarClass{
             }
         });
 
-        String type = "designer";
+        String type = "Designer";
         Intent intent = getIntent();
         String pic = intent.getStringExtra("page");
         EditText editText = findViewById(R.id.designer_Text);
         Button upload_next = findViewById(R.id.designer_upload2_next);
+        helper = new DatabaseHelper(this);
+        database = helper.getWritableDatabase();
         upload_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = editText.getText().toString();
                 Toast.makeText(getApplicationContext(),type+" "+pic+" "+text,Toast.LENGTH_SHORT).show();
-                //insertData(type,pic,text);
+                insertData(type,pic,text);
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -119,5 +122,14 @@ public class DesignerUploadActivity2 extends toolbarClass{
         return true;
     }
 
+    private void insertData(String type, String pic, String text) {
+        Date now= new Date(System.currentTimeMillis());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(now);
+        String query =
+                "insert into Hairs (type, pic, text, date) values " +
+                        "('"+type+"','"+ pic + "','"+text +"','"+date+"');";
+        database.execSQL(query);
+    }
 
 }
