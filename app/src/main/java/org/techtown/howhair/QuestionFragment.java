@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class QuestionFragment extends Fragment {
 
-    BoardDatabase boardDatabase;
+
     TextView textView;
     DatabaseHelper helper;
     SQLiteDatabase database;
@@ -64,7 +64,7 @@ public class QuestionFragment extends Fragment {
                 String pic = cursor.getString(1);
                 String text = cursor.getString(2);
                 String date = cursor.getString(3);
-                textView.append("레코드 : "+type+" "+pic+" "+text+" "+date);
+                textView.append("\n레코드 : "+type+" "+pic+" "+text+" "+date);
             }
         }
 

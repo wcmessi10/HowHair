@@ -94,7 +94,7 @@ public class ReviewUploadActivity1 extends toolbarClass {
                     intent.putExtra("uploadImage",imgBitmap.toString());
                     startActivity(intent);
                 }else {
-                    intent.putExtra("page","null");
+                    intent.putExtra("uploadImage","null");
                     startActivity(intent);
                 }
             }

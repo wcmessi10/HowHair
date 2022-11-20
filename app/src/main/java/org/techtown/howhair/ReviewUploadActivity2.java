@@ -75,7 +75,7 @@ public class ReviewUploadActivity2 extends toolbarClass{
 
         String type = "Review";
         Intent intent = getIntent();
-        String pic = intent.getStringExtra("page");
+        String pic = intent.getStringExtra("uploadImage");
         EditText editText = findViewById(R.id.review_Text);
         Button upload_next = findViewById(R.id.review_upload2_next);
         helper = new DatabaseHelper(this);
@@ -122,7 +122,7 @@ public class ReviewUploadActivity2 extends toolbarClass{
 
     private void insertData(String type, String pic, String text) {
         Date now= new Date(System.currentTimeMillis());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = format.format(now);
         String query =
                 "insert into Hairs (type, pic, text, date) values " +

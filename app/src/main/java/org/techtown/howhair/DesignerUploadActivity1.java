@@ -2,8 +2,10 @@ package org.techtown.howhair;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,6 +37,7 @@ public class DesignerUploadActivity1 extends toolbarClass {
     ImageView imageView;
     ImageView imageView2;
     private static final int REQUEST_TAKE_ALBUM=102;//앨범업로드
+    private static final int PICTURE_UPLOAD=108;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +91,7 @@ public class DesignerUploadActivity1 extends toolbarClass {
             }
         });
 
+
         Button upload_next = findViewById(R.id.designer_upload1_next);
         upload_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +101,7 @@ public class DesignerUploadActivity1 extends toolbarClass {
                     intent.putExtra("uploadImage",imgBitmap.toString());
                     startActivity(intent);
                 }else {
-                    intent.putExtra("page","null");
+                    intent.putExtra("uploadImage","null");
                     startActivity(intent);
                 }
             }

@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends toolbarClass implements BoardDatabase{
+public class MainActivity extends toolbarClass {
 
     ActionBar abar;//액션바 생성
     DrawerLayout drawerLayout;
@@ -86,62 +86,6 @@ public class MainActivity extends toolbarClass implements BoardDatabase{
         helper = new DatabaseHelper(this);
         database = helper.getWritableDatabase();
 
-    }
-
-
-    //DB 생성
-
-
-    @Override
-    public void findDatabase() {
-        database = openOrCreateDatabase("게시글", MODE_PRIVATE, null); //DB가 존재하면 오픈. 존재하지않은면 생성
-    }
-
-    @Override
-    public void findTable() {
-
-        String query =
-                "create table if not exists Hairs " +
-                        "(type text not null, pic text, text text,date text);";
-        try{
-            database.execSQL(query);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void executeQuery(TextView textView, String type1) {
-        Cursor cursor =database.rawQuery("select type, pic, text, date from board where type ='"+type1+"'",null);
-        int recordCount = cursor.getCount();//레코드 개수
-        textView.append("레코드 개수 : "+recordCount);
-        if(recordCount!=0){
-            for (int i = 0; i<recordCount; i++){
-                cursor.moveToNext();
-                String type = cursor.getString(0);
-                String pic = cursor.getString(1);
-                String text = cursor.getString(2);
-                String date = cursor.getString(3);
-                textView.append("레코드 : "+type+" "+pic+" "+text+" "+date);
-            }
-        }
-
-        cursor.close();
-    }
-
-    @Override
-    public void insertData(String type, String pic, String text) {
-        //database.beginTransaction();
-        String query =
-                "insert into Hairs (type, pic, text, date) values " +
-                        "("+type +","+ pic + ","+text +",sysdate);";
-        database.execSQL(query);
-        /*try{
-            database.execSQL(query);
-        }catch (Exception e){
-            e.printStackTrace();
-        }*/
-        //database.endTransaction();
     }
 
 
