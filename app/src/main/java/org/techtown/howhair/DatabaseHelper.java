@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query =
                 "create table if not exists Hairs " +
                         "(type text not null, " +
-                        "pic text, " +
+                        "pic blob, " +
                         "text text," +
                         "date text);";
         sqLiteDatabase.execSQL(query);

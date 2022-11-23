@@ -2,6 +2,7 @@ package org.techtown.howhair;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -75,7 +76,7 @@ public class ReviewUploadActivity2 extends toolbarClass{
 
         String type = "Review";
         Intent intent = getIntent();
-        String pic = intent.getStringExtra("uploadImage");
+        byte[] byteImage = intent.getByteArrayExtra("uploadImage");
         EditText editText = findViewById(R.id.review_Text);
         Button upload_next = findViewById(R.id.review_upload2_next);
         helper = new DatabaseHelper(this);
@@ -84,10 +85,10 @@ public class ReviewUploadActivity2 extends toolbarClass{
             @Override
             public void onClick(View view) {
                 String text = editText.getText().toString();
-                Toast.makeText(getApplicationContext(),type+" "+pic+" "+text,Toast.LENGTH_SHORT).show();
-                insertData(type,pic,text);
+                insertData(type,byteImage,text);
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Toast.makeText(getApplicationContext(),type+" "+byteImage.toString()+" "+text,Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
@@ -120,13 +121,16 @@ public class ReviewUploadActivity2 extends toolbarClass{
         return true;
     }
 
-    private void insertData(String type, String pic, String text) {
+    private void insertData(String type, byte[] pic, String text) {
         Date now= new Date(System.currentTimeMillis());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = format.format(now);
         String query =
                 "insert into Hairs (type, pic, text, date) values " +
-                        "('"+type+"','"+ pic + "','"+text +"','"+date+"');";
-        database.execSQL(query);
+                        "('"+type+"',?,'"+text +"','"+date+"');";
+        SQLiteStatement sql = database.compileStatement(query);
+        sql.bindBlob(1,pic);
+        sql.execute();
+
     }
 }

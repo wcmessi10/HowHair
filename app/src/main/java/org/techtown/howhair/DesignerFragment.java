@@ -31,7 +31,6 @@ public class DesignerFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_designer, container, false);
 
         String type ="Designer";
-        textView = (rootView).findViewById(R.id.designertest);
 
         helper = new DatabaseHelper(this);
         database = helper.getWritableDatabase();
@@ -53,7 +52,6 @@ public class DesignerFragment extends Fragment {
     private void executeQuery(TextView textView, String type1) {
         Cursor cursor =database.rawQuery("select type, pic, text, date from Hairs where type ='"+type1+"'",null);
         int recordCount = cursor.getCount();//레코드 개수
-        textView.append("레코드 개수 : "+recordCount);
         if(recordCount!=0){
             for (int i = 0; i<recordCount; i++){
                 cursor.moveToNext();
@@ -61,7 +59,7 @@ public class DesignerFragment extends Fragment {
                 String pic = cursor.getString(1);
                 String text = cursor.getString(2);
                 String date = cursor.getString(3);
-                textView.append("\n레코드 : "+type+" "+pic+" "+text+" "+date);
+
             }
         }
 
