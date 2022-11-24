@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 public class DesignerUploadActivity1 extends toolbarClass {
@@ -37,7 +39,6 @@ public class DesignerUploadActivity1 extends toolbarClass {
     ImageView imageView;
     ImageView imageView2;
     private static final int REQUEST_TAKE_ALBUM=102;//앨범업로드
-    private static final int PICTURE_UPLOAD=108;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,10 +99,14 @@ public class DesignerUploadActivity1 extends toolbarClass {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), DesignerUploadActivity2.class);
                 if(imgBitmap!=null){
-                    intent.putExtra("uploadImage",imgBitmap.toString());
+                    byte[] byteImage = bitmapToString(imgBitmap);
+                    Log.d("test",byteImage.toString());
+                    intent.putExtra("uploadImage",byteImage);
                     startActivity(intent);
                 }else {
-                    intent.putExtra("uploadImage","null");
+                    String nulltest = "null";
+                    byte[] noImage = nulltest.getBytes();
+                    intent.putExtra("uploadImage",noImage);
                     startActivity(intent);
                 }
             }
@@ -165,5 +170,11 @@ public class DesignerUploadActivity1 extends toolbarClass {
         }
         return true;
     }
-
+    private byte[] bitmapToString(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 40,stream);
+        byte[] bytes = stream.toByteArray();
+        //String image = Base64.getEncoder().encodeToString(bytes);
+        return bytes;
+    }
 }

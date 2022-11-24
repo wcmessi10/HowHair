@@ -166,8 +166,8 @@ public class ReviewUploadActivity1 extends toolbarClass {
         }
         return true;
     }
-    //비트맵을 문자열로 변환
-    public byte[] bitmapToString(Bitmap bitmap){
+    //비트맵을 바이트배열로 변환
+    private byte[] bitmapToString(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 40,stream);
         byte[] bytes = stream.toByteArray();

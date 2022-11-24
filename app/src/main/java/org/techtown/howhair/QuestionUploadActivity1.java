@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 public class QuestionUploadActivity1 extends toolbarClass {
@@ -91,10 +93,14 @@ public class QuestionUploadActivity1 extends toolbarClass {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), QuestionUploadActivity2.class);
                 if(imgBitmap!=null){
-                    intent.putExtra("uploadImage",imgBitmap.toString());
+                    byte[] byteImage = bitmapToString(imgBitmap);
+                    Log.d("test",byteImage.toString());
+                    intent.putExtra("uploadImage",byteImage);
                     startActivity(intent);
                 }else {
-                    intent.putExtra("uploadImage","null");
+                    String nulltest = "null";
+                    byte[] noImage = nulltest.getBytes();
+                    intent.putExtra("uploadImage",noImage);
                     startActivity(intent);
                 }
             }
@@ -158,6 +164,13 @@ public class QuestionUploadActivity1 extends toolbarClass {
                 break;
         }
         return true;
+    }
+    private byte[] bitmapToString(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 40,stream);
+        byte[] bytes = stream.toByteArray();
+        //String image = Base64.getEncoder().encodeToString(bytes);
+        return bytes;
     }
 
 }

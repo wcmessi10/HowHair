@@ -31,7 +31,6 @@ import java.util.Base64;
 
 public class ReviewFragment extends Fragment {
 
-    TextView textView;
     SQLiteDatabase database;
     DatabaseHelper helper;
     HairViewAdapter adapter;

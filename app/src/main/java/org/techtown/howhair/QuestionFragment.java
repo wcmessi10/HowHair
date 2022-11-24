@@ -3,23 +3,31 @@ package org.techtown.howhair;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+
 
 public class QuestionFragment extends Fragment {
 
-
-    TextView textView;
     DatabaseHelper helper;
     SQLiteDatabase database;
+    HairViewAdapter adapter;
+    ArrayList<HairView> reviewList;
+    RecyclerView recyclerView;
     @Override
     public void onAttach(@NonNull Context context) {//생명주기에서 프래그먼트가 액티비티에 추가될 때 호출
         super.onAttach(context);
@@ -29,16 +37,18 @@ public class QuestionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_question, container, false);
 
-        String type="Question";
-
-        textView = (rootView).findViewById(R.id.questiontest);
         helper = new DatabaseHelper(this);
         database = helper.getWritableDatabase();
         findTable();
-        executeQuery(textView, type);
+        recyclerView = (rootView).findViewById(R.id.recylerView_question);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()
+                , LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new HairViewAdapter();
+        reviewList = executeQuery();
+        recyclerView.setAdapter(adapter);
 
         return rootView;
     }
@@ -53,21 +63,29 @@ public class QuestionFragment extends Fragment {
             e.printStackTrace();
         }
     }
-    private void executeQuery(TextView textView, String type1) {
-        Cursor cursor =database.rawQuery("select type, pic, text, date from Hairs where type ='"+type1+"'",null);
+    private ArrayList<HairView> executeQuery() {
+        ArrayList<HairView> u = new ArrayList<HairView>();
+        Cursor cursor =database.rawQuery("select type, pic, text, date from Hairs where type ='Question'",null);
         int recordCount = cursor.getCount();//레코드 개수
-        textView.append("레코드 개수 : "+recordCount);
         if(recordCount!=0){
             for (int i = 0; i<recordCount; i++){
                 cursor.moveToNext();
                 String type = cursor.getString(0);
-                String pic = cursor.getString(1);
+                byte[] pic = cursor.getBlob(1);
+                Bitmap image = stringToBitmap(pic);
                 String text = cursor.getString(2);
                 String date = cursor.getString(3);
-                textView.append("\n레코드 : "+type+" "+pic+" "+text+" "+date);
+                HairView h = new HairView(type, text,image);
+                adapter.addItem(h);
             }
         }
 
         cursor.close();
+        return u;
+    }
+    private Bitmap stringToBitmap(byte[] strBitmap){
+        ByteArrayInputStream stream = new ByteArrayInputStream(strBitmap);
+        Bitmap bitmap = BitmapFactory.decodeStream(stream);
+        return bitmap;
     }
 }
